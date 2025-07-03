@@ -1,34 +1,40 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Persons from './components/Persons';
+import PersonForm from './components/PersonForm';
+import Filter from './components/Filter';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [persons, setPersons] = useState([
+    { name: 'Arto Hellas',number: '456789' }
+  ]) 
+  const [newName, setNewName] = useState('');
+  const [newNumber, setNewNumber] = useState('');
+  const [filter, setFilter] = useState('');
+
+ 
+  const handleNameChange = (event) => {
+    event.preventDefault();
+    if(persons.some((person)=>person.name === newName)){
+      alert(`${newName} is already added to Phonebook`);
+      return;
+    }
+    setPersons([ ...persons, {name: newName,number:newNumber} ]);
+    setNewName('');
+
+  }
+  // filtered persons
+
+  const filteredPersons = persons.filter((person)=>person.name.toLowerCase().includes(filter.toLowerCase()));
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <h2>Phonebook</h2>
+
+      <Filter filter={filter} setFilter={setFilter} />
+      <PersonForm newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber} handleNameChange={handleNameChange} />
+      <h2>Numbers</h2>
+     <Persons filteredPersons={filteredPersons}/>
+    </div>
   )
 }
 
