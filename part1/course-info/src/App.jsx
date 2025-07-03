@@ -25,14 +25,12 @@ const App = () => {
 
   return (
     <div>
-      {/* <Work1 /> */}
-      <Work2 />
-
-      {/* <Counter /> */}
-   {/* <Header course={course}/>
+      
+      
+   <Header course={course}/>
     <Content  parts={parts}/>
    <Total parts={parts}/>
-       */}
+       
       
       
     </div>

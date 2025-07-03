@@ -1,12 +1,9 @@
 import React from 'react'
 
 function Content({parts}) {
-  const {name,exercises} = parts[1]
   return (
     <div>
-      <p>
-        {name} {exercises}
-      </p>
+      {parts.map((part)=><p key={part.exercises}>{part.name} {part.exercises}</p>)}
      
     </div>
   )
