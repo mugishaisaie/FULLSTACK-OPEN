@@ -99,15 +99,18 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div className='container'>
 
       <Notification notification={notification} setNotification={setNotification} />
       <h2>Phonebook</h2>
 
       <Filter filter={filter} setFilter={setFilter} />
+      <div className='person'>
+        
       <PersonForm newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber} handleNameChange={handleNameChange} />
-      <h2>Numbers</h2>
+      
      <Persons filteredPersons={filteredPersons} handleDeletePerson={handleDeletePerson}/>
+      </div>
     </div>
   )
 }

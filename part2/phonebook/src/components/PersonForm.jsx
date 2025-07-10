@@ -5,11 +5,11 @@ function PersonForm({newName, setNewName, newNumber, setNewNumber, handleNameCha
     
      <form onSubmit={handleNameChange}>
         <h2>Add new Person</h2>
-        <div>
+        <div className='form-control'>
           name: <input  value={newName} onChange={(e)=>setNewName(e.target.value)}/>
         </div>
         
-         <div>number: <input value={newNumber} onChange={(e)=>setNewNumber(e.target.value)}/></div>
+         <div className='form-control'>number: <input value={newNumber} onChange={(e)=>setNewNumber(e.target.value)}/></div>
        
         <div>
           <button type="submit">add</button>
