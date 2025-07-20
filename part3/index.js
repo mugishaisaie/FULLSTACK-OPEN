@@ -1,15 +1,4 @@
-// const http = require('http');
-
-// const app = http.createServer((request,response)=>{
-//     response.writeHead(200,{'Content-Type': 'text/plain'})
-//     response.end('Hello World')
-// })
-
-// const PORT = 30001;
-// app.listen(PORT)
-// console.log(`Server running on port ${PORT}`)
-
-let notes = [
+                                                      let notes = [
   {
     id: "1",
     content: "HTML is easy",
@@ -27,14 +16,21 @@ let notes = [
   }
 ]
 
-const http = require('http');
-const { json } = require('stream/consumers');
+const express = require('express');
 
-const app = http.createServer((request,response)=>{
-    response.writeHead(200,{'Content-Type':'application/json'})
-    response.end(json.stringify(notes));
+const app = express();
+
+app.use(express.json());
+
+app.post('/api/notes',(request,response)=>{
+  const note = request.body;
+  response.json(note)
 })
+
 
 const PORT = 3001;
 
-app.listen(PORT)
+app.listen(PORT,()=>{
+  console.log(`Server running on port ${PORT}`);
+  
+})
