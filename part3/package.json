@@ -7,8 +7,8 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "node --watch index.js",
+    "start": "node phonebook.js",
+    "dev": "node --watch phonebook.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
