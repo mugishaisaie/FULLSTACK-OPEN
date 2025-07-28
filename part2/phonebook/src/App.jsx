@@ -12,14 +12,14 @@ const App = () => {
   const [filter, setFilter] = useState('');
   const [notification, setNotification] = useState(null);
   
-
+const baseUrl = "http://localhost:3000/api/persons"
   // handle fetch
 
   useEffect(()=>{
     const fetchPersons = () => {
       
         
-       axios.get("http://localhost:3001/persons").then((response)=>{
+       axios.get(baseUrl).then((response)=>{
          setPersons(response.data)
 
        }).catch((err)=>{
@@ -45,7 +45,7 @@ const App = () => {
 
      if(confirming){
       const updatedPerson = {...existingPerson,number: newNumber}
-      axios.put(`http://localhost:3001/persons/${updatedPerson.id}`,updatedPerson).then((response)=>{
+      axios.put(`${baseUrl}/${updatedPerson.id}`,updatedPerson).then((response)=>{
         setPersons(persons.map((person)=>person.id !== updatedPerson.id ? person : response.data));
         setNewName('');
         setNewNumber('');
@@ -63,8 +63,9 @@ const App = () => {
 
     const newPerson ={name: newName,number:newNumber} 
     
-    axios.post(`http://localhost:3001/persons`,newPerson).then((response)=>{
-      setPersons(persons.concat(response.data));
+    axios.post(baseUrl,newPerson).then((response)=>{
+      console.log(response.data) 
+      setPersons((response.data));
       setNewName('');
       setNewNumber('');
       setNotification(`${newName} Added Successfully`);
@@ -84,7 +85,7 @@ const App = () => {
     const personToDelete = persons.find((person)=>person.id ===id);
     const confirm = window.confirm(`Are you sure you want to delete ${personToDelete.name}?`)
     if(confirm) {
-      axios.delete(`http://localhost:3001/persons/${id}`).then((response)=> console.log("Deleted : ",response.data) );
+      axios.delete(`${baseUrl}/${id}`).then((response)=> console.log("Deleted : ",response.data) );
 
       setPersons(persons.filter((person)=>person.id !==id));
 

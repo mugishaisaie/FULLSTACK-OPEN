@@ -24,7 +24,16 @@ const persons = [
 
 const express = require('express');
 const app = express();
+const cors = require('cors');
+
+
+const morgan = require('morgan');
 app.use(express.json())
+// app.use(morgan('tiny'));
+app.use(cors());
+
+morgan.token('body',(req)=>JSON.stringify(req.body))
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
 
 
 app.get('/info',(req,res)=>{
@@ -59,7 +68,7 @@ app.post('/api/persons',(req,res)=>{
     
 const {name,number}= req.body
 const id = Math.floor(Math.random() * 10000).toString();
-console.log(name,number);
+// console.log(name,number);
 if(!name || !number){
     return res.status(400).json({ error: 'Name or Number is missing' });
 
