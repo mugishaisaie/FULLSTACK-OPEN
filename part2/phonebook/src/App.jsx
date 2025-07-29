@@ -12,7 +12,8 @@ const App = () => {
   const [filter, setFilter] = useState('');
   const [notification, setNotification] = useState(null);
   
-const baseUrl = "http://localhost:3000/api/persons"
+// const baseUrl = "http://localhost:3000/api/persons"
+const baseUrl = "https://phonebook-drd6.onrender.com/api/persons"
   // handle fetch
 
   useEffect(()=>{

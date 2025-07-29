@@ -9,7 +9,9 @@
   "scripts": {
     "start": "node phonebook.js",
     "dev": "node --watch phonebook.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:ui": "rmdir /s /q dist && cd ../part2/phonebook && npm run build && cp -r dist ../../part3"
+  
+
   },
   "dependencies": {
     "cors": "^2.8.5",
