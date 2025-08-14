@@ -14,3 +14,6 @@ My Journey 🧑‍💻📌 to Best FullStack Developer
 what today I learned
 1. Mongodb by creating cluster - database - collection
 2. connecting my Database and also inserting some documents
+
+<!-- what i learned today -->
+- you can retrieve data from database by using find method
