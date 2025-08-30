@@ -56,3 +56,6 @@ express.json() → parse JSON request bodies.
 morgan → request logger (optional).
 
 cors → allow frontend from other domains/ports to talk to backend.
+
+
+RegExp = “ignore case, match the name exactly.”
