@@ -13,7 +13,9 @@ const App = () => {
   const [notification, setNotification] = useState(null);
   
 // const baseUrl = "http://localhost:3000/api/persons"
-const baseUrl = "https://phonebook-drd6.onrender.com/api/persons"
+// const baseUrl = "https://phonebook-drd6.onrender.com/api/persons"
+
+const baseUrl = "http://localhost:3001/api/persons"
   // handle fetch
 
   useEffect(()=>{
@@ -33,7 +35,7 @@ const baseUrl = "https://phonebook-drd6.onrender.com/api/persons"
  
   const handleNameChange = (event) => {
     event.preventDefault();
-          const existingPerson = persons.find((person)=>person.name === newName);
+          const existingPerson = persons.find((person)=>person.name.toLowerCase() === newName.toLocaleLowerCase());
 
     if(existingPerson && existingPerson.number === newNumber){
       alert(`${newName} is already added to Phonebook`);

@@ -1,27 +1,27 @@
-const persons = [
-    { 
-      "id": "1",
-      "name": "Arto Hellas", 
-      "number": "040-123456"
-    },
-    { 
-      "id": "2",
-      "name": "Ada Lovelace", 
-      "number": "39-44-5323523"
-    },
-    { 
-      "id": "3",
-      "name": "Dan Abramov", 
-      "number": "12-43-234345"
-    },
-    { 
-      "id": "4",
-      "name": "Mary Poppendieck", 
-      "number": "39-23-6423122"
-    }
-]
+// const persons = [
+//     { 
+//       "id": "1",
+//       "name": "Arto Hellas", 
+//       "number": "040-123456"
+//     },
+//     { 
+//       "id": "2",
+//       "name": "Ada Lovelace", 
+//       "number": "39-44-5323523"
+//     },
+//     { 
+//       "id": "3",
+//       "name": "Dan Abramov", 
+//       "number": "12-43-234345"
+//     },
+//     { 
+//       "id": "4",
+//       "name": "Mary Poppendieck", 
+//       "number": "39-23-6423122"
+//     }
+// ]
 
-
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -35,18 +35,27 @@ app.use(cors());
 
 morgan.token('body',(req)=>JSON.stringify(req.body))
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
-
-// app.get('/',(req,res)=>{
-//   res.send('<h1>Welcome to Phonebook API</h1>');
-// })
+const Person = require('./model/person')
+const PORT  = process.env.PORT;
 
 app.get('/info',(req,res)=>{
   res.write(`<p>Phonebook has info for ${persons.length} people</p>`);
   res.end(`${ new Date().toString()}`);
 })
 // 
-app.get('/api/persons',(req,res)=>{
+app.get('/api/persons',async(req,res)=>{
+
+ try {
+  const persons = await Person.find({});
   res.status(200).json(persons);
+  
+  
+ } catch (error) {
+  console.error('Error fetching persons:', error);
+  res.status(500).json({ error: 'Internal Server Error' });
+  
+ }
+  
 })
 app.get('/api/persons/:id',(req,res)=>{
   const id = req.params.id;
@@ -78,7 +87,7 @@ if(!name || !number){
   
 }
 
-const existingPerson = persons.find((person)=>person.name === name);
+const existingPerson = persons.find((person)=>person.name.toLocaleLowerCase() === name.toLocaleLowerCase());
 if(existingPerson){
   return res.status(400).json({ error: `Name : ${name} already exists` });
 }
@@ -98,6 +107,6 @@ res.status(201).json(persons)
 //   res.sendFile(path.join(__dirname,'dist','index.html'));
 // })
 
-app.listen(3000,()=>{
-    console.log('Server running on port 3000');
+app.listen(PORT,()=>{
+    console.log(`Server running on port ${PORT}`);
 })
