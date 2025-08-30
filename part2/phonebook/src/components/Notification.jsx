@@ -1,23 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-function Notification({notification,setNotification}) {
-  if(!notification) return null;
-
-if(notification){
-    setTimeout(()=>{
+function Notification({ notification, setNotification }) {
+  useEffect(() => {
+    if (notification) {
+      const timer = setTimeout(() => {
         setNotification(null)
+      }, 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [notification, setNotification])
 
-    },5000)
-}
+  if (!notification) return null
+
   const notificationStyle = {
     color: 'green',
     background: 'lightgrey',
     fontSize: '20px',
     margin: '10px',
-}
+  }
+
   return (
     <div>
-      <p style={notificationStyle}>{notification ? notification : null}</p>
+      <p style={notificationStyle}>{notification}</p>
     </div>
   )
 }

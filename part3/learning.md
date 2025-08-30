@@ -59,3 +59,6 @@ cors → allow frontend from other domains/ports to talk to backend.
 
 
 RegExp = “ignore case, match the name exactly.”
+
+// 5. Handle unknown endpoints/errors (must come AFTER routes)
+

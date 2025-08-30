@@ -23,7 +23,7 @@ const baseUrl = "http://localhost:3001/api/persons"
       
         
        axios.get(baseUrl).then((response)=>{
-         setPersons(response.data)
+         setPersons(response.data)  
 
        }).catch((err)=>{
          console.error("Error fetching persons:", err);
@@ -35,7 +35,7 @@ const baseUrl = "http://localhost:3001/api/persons"
  
   const handleNameChange = (event) => {
     event.preventDefault();
-          const existingPerson = persons.find((person)=>person.name.toLowerCase() === newName.toLocaleLowerCase());
+          const existingPerson = persons.find((person)=>person.name.toLowerCase() === newName.toLowerCase());
 
     if(existingPerson && existingPerson.number === newNumber){
       alert(`${newName} is already added to Phonebook`);
@@ -67,8 +67,9 @@ const baseUrl = "http://localhost:3001/api/persons"
     const newPerson ={name: newName,number:newNumber} 
     
     axios.post(baseUrl,newPerson).then((response)=>{
-      console.log(response.data) 
-      setPersons((response.data));
+      // console.log(response.data) 
+      // setPersons((persons.concat(response.data)));
+      setPersons(prevPersons => [...prevPersons, response.data]);
       setNewName('');
       setNewNumber('');
       setNotification(`${newName} Added Successfully`);
@@ -82,7 +83,7 @@ const baseUrl = "http://localhost:3001/api/persons"
   }
   // filtered persons
 
-  const filteredPersons = persons.filter((person)=>(person.name && person.name.toLowerCase().includes(filter.toLowerCase())));
+  const filteredPersons = Array.isArray(persons)&& persons.filter((person)=>(person.name && person.name.toLowerCase().includes(filter.toLowerCase())));
 
   const handleDeletePerson = id =>{
     const personToDelete = persons.find((person)=>person.id ===id);
@@ -97,7 +98,9 @@ const baseUrl = "http://localhost:3001/api/persons"
     }
       
 
-
+    
+  }
+  const handleEditPerson = (id)=>{
 
     // if(window.confirm("Are you sure"))
   }
@@ -111,9 +114,9 @@ const baseUrl = "http://localhost:3001/api/persons"
       <Filter filter={filter} setFilter={setFilter} />
       <div className='person'>
         
-      <PersonForm newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber} handleNameChange={handleNameChange} />
+      <PersonForm newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber} handleNameChange={handleNameChange}/>
       
-     <Persons filteredPersons={filteredPersons} handleDeletePerson={handleDeletePerson}/>
+     <Persons filteredPersons={filteredPersons} handleDeletePerson={handleDeletePerson} handleEditPerson={handleEditPerson}/>
       </div>
     </div>
   )

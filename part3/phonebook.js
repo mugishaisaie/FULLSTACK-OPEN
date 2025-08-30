@@ -28,6 +28,8 @@ const cors = require('cors');
 const morgan = require('morgan');
 // const path = require('path');
 
+const errorHandler = require('./errorHandler/errorHandler')
+
 app.use(express.static('dist'))
 app.use(express.json())
 // app.use(morgan('tiny'));
@@ -60,7 +62,7 @@ app.get('/api/persons',async(req,res)=>{
 app.get('/api/persons/:id',async(req,res)=>{
   // const id = req.params.id;
   
-  const person = Person.findById(req.params.id);
+  const person = await Person.findById(req.params.id);
   if(!person){
     return res.status(404).json({ error: `Person with Id : ${id} Not found`});
   }
@@ -91,7 +93,7 @@ app.post('/api/persons',async(req,res)=>{
     
   const {name,number} = req.body
 // const id = Math.floor(Math.random() * 10000).toString();
-// console.log(name,number);
+console.log(name,number);
 
  
 if(!name || !number){
@@ -111,7 +113,39 @@ Person.create({name,number}).then((result)=>{
  })
 })
 
+app.put('/api/persons/:id',async(req,res)=>{
 
+  try {
+    
+    const {name,number} = req.body;
+    const id = req.params.id;
+  
+    const updatedPerson = await Person.findByIdAndUpdate(id,{name,number},{
+      new:true,
+      runValidators:true
+    })
+
+    if(!updatedPerson){
+      return res.status(404).json({ error: `Person with Id : ${id} Not found`});
+    }
+    res.status(200).json(updatedPerson);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+    
+  }
+
+})
+
+// Error and unknown endpoint handling
+
+const unknownEndpoint = (req,res)=>{
+  res.status(404).json({ error: 'Unknown Endpoint' });
+
+}
+app.use(unknownEndpoint)
+
+app.use(errorHandler)
 
 // app.get('*',(req,res)=>{
 //   res.sendFile(path.join(__dirname,'dist','index.html'));
