@@ -108,7 +108,7 @@ if(existingPerson){
 Person.create({name,number}).then((result)=>{
   res.status(201).json(result)
  }).catch((err)=>{
-  console.error('Error saving person:', err);
+  console.error('Error saving person:', err.response.data.error);
   res.status(500).json({ error: 'Internal Server Error' });
  })
 })
