@@ -62,3 +62,6 @@ RegExp = “ignore case, match the name exactly.”
 
 // 5. Handle unknown endpoints/errors (must come AFTER routes)
 
+
+
+Linting = static analysis of your code to catch mistakes, enforce style, and keep code clean & reliable.
