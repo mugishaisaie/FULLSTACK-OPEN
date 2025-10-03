@@ -5,7 +5,7 @@ const Blog = require('../models/blogs');
 const listBlogs = (req,res,next)=>{
     try {
         Blog.find({}).then((blogs) => {
-    response.json(blogs)
+    res.json(blogs)
   })
     } catch (error) {
         next(error)
@@ -15,10 +15,10 @@ const listBlogs = (req,res,next)=>{
 
 const createBlogs = (req,res,next)=>{
     try{
-        const blog = new Blog(request.body)
+        const blog = new Blog(req.body)
 
   blog.save().then((result) => {
-    response.status(201).json(result)
+    res.status(201).json(result)
   })
 
     }catch(error){
