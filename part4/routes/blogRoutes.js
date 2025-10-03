@@ -4,13 +4,13 @@ const router = express.Router();
 const Blog = require('../models/blogs');
 
 
-router.get('/api/blogs', (request, response) => {
+router.get('/', (request, response) => {
   Blog.find({}).then((blogs) => {
     response.json(blogs)
   })
 })
 
-router.post('/api/blogs', (request, response) => {
+router.post('/', (request, response) => {
   const blog = new Blog(request.body)
 
   blog.save().then((result) => {
