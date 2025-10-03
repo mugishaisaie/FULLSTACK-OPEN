@@ -4,6 +4,8 @@ require('dotenv').config();
 
 const app = express()
 
+// const Blog = require('./models/blogs');
+
 const blogSchema = mongoose.Schema({
   title: String,
   author: String,
@@ -11,7 +13,7 @@ const blogSchema = mongoose.Schema({
   likes: Number,
 })
 
-const Blog = mongoose.model('Blog', blogSchema)
+const Blog = mongoose.model('blog', blogSchema)
 
 const mongoUrl = process.env.MONGO_URL;
 mongoose.connect(mongoUrl)
