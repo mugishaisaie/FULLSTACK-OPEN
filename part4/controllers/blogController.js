@@ -7,7 +7,7 @@ const listBlogs = (req,res,next)=>{
         Blog.find({}).then((blogs) => {
     res.json(blogs)
   })
-    } catch (error) {
+    } catch (er ror) {
         next(error)
         
     }
