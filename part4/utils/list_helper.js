@@ -1,3 +1,5 @@
+const _ = require("lodash")
+
 const dummy =(blogs)=>{
     return 1;
 }
@@ -17,31 +19,38 @@ const favoriteBlog =(blogs)=>{
     return favorite;
 }
 
-const mostBlogs =blogs=>{
-    if(blogs.length === 0)return null;
-    const counts ={};
+// const mostBlogs =blogs=>{
+//     if(blogs.length === 0)return null;
+//     const counts ={};
 
-    blogs.forEach((blog)=>{
-        counts[blog.author] = (counts[blog.author] || 0) +1
-    })
+//     blogs.forEach((blog)=>{
+//         counts[blog.author] = (counts[blog.author] || 0) +1
+//     })
 
-    let topAuthor = null;
-    let maxBlogs = 0;
+//     let topAuthor = null;
+//     let maxBlogs = 0;
 
-    for (const author in counts){
-        if(counts[author]> maxBlogs){
-            topAuthor= author;
-            maxBlogs=counts[author]
-        }
+//     for (const author in counts){
+//         if(counts[author]> maxBlogs){
+//             topAuthor= author;
+//             maxBlogs=counts[author]
+//         }
 
-    }
+//     }
 
-    return {
-        topAuthor,
-        maxBlogs
-    }
+//     return {
+//         topAuthor,
+//         maxBlogs
+//     }
+
+// }
+
+const mostBlogs = blogs =>{
 
 }
+
+
+
 
 module.exports = {
     dummy,totalLikes,favoriteBlog,mostBlogs
