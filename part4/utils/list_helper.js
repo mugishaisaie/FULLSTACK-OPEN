@@ -1,5 +1,5 @@
-const _ = require("lodash")
-
+// const _ = require("lodash")
+const _ = require('lodash')
 const dummy =(blogs)=>{
     return 1;
 }
@@ -46,7 +46,14 @@ const favoriteBlog =(blogs)=>{
 // }
 
 const mostBlogs = blogs =>{
+    if(blogs.length === 0)return null;
 
+    const grouped = _.groupBy(blogs,'author');
+    const formatted = _.map(grouped,(items, author)=>({
+        topAuthor:author,
+        maxBlogs:items.length
+    }));
+return _.maxBy(formatted,'maxBlogs')
 }
 
 
